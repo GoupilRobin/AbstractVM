@@ -20,5 +20,5 @@ comprenant bien que :
         Droits qu’autrui peut avoir soit sur l’œuvre elle-même soit sur la façon dont elle est utilisée, comme le droit à l’image ou les droits à la vie privée.
     Remarque — A chaque réutilisation ou distribution de cette œuvre, vous devez faire apparaître clairement au public la licence selon laquelle elle est mise à disposition. La meilleure manière de l’indiquer est un lien vers cette page web.
 
-Version complète de la liscence sur :
+Version complète de la licence sur :
 http://creativecommons.org/licenses/by-nc-nd/3.0/fr/
