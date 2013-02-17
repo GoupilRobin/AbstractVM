@@ -5,7 +5,7 @@
 ## Login   <goupil_r@epitech.net>
 ## 
 ## Started on  Wed Feb 13 10:48:21 2013 robin goupil
-## Last update Wed Feb 13 14:27:31 2013 robin goupil
+## Last update Thu Feb 14 21:28:33 2013 robin goupil
 ##
 
 NAME		=	abstract
@@ -13,7 +13,8 @@ NAME		=	abstract
 D_NAME		=	debug
 
 SRC		=	main.cpp \
-			TOperand.cpp \
+			Operand.cpp \
+			Abstract.cpp \
 
 C_FLAG		=	-W -Wall -Werror
 

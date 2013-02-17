@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Wed Feb 13 10:40:07 2013 robin goupil
-// Last update Wed Feb 13 14:38:18 2013 robin goupil
+// Last update Thu Feb 14 21:27:12 2013 robin goupil
 //
 
 #ifndef IOPERAND_HPP_
@@ -27,6 +27,8 @@ typedef struct	s_operand
   eOperandType	type;
   std::string	type_name;
   int		precision;
+  long		max_size;
+  long		min_size;
 } t_operand;
 
 class IOperand

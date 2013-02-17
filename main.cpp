@@ -5,24 +5,31 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Wed Feb 13 10:47:40 2013 robin goupil
-// Last update Thu Feb 14 19:31:49 2013 robin goupil
+// Last update Sun Feb 17 13:11:16 2013 robin goupil
 //
 
 #include <iostream>
 #include "IOperand.hpp"
 #include "Operand.hpp"
+#include "Abstract.hpp"
 
 int		main(int ac, char **av)
 {
-  Operand		a(Int8, 100.3);
-  Operand		b(Double, 127);
-  IOperand		*res;
-
   (void) ac;
   (void) av;
-  res = (a + b);
-  std::cout << "(dynamic) a + b = " << *(a + b) << std::endl;
-  std::cout << "(stored) a + b = " << *res << std::endl;
-  std::cout << "(dynamic) x + y = " << *(Operand(Int8, 1) + Operand(Float, 3.14)) << std::endl;
+  Abstract	a;
+  IOperand	*op1 = a.createOperand(Int8, "2");
+  IOperand	*op2 = a.createOperand(Int8, "2");
+  IOperand	*op3 = a.createOperand(Int8, "5");
+
+  a.push(op1);
+  a.push(op2);
+  a.push(op3);
+  a.push(a.createOperand(Int8, "120"));
+
+  std::cout << "Result add:" << *(a.add()) << std::endl;
+  std::cout << "Result add:" << *(a.add()) << std::endl;
+  std::cout << "Result add:" << *(a.add()) << std::endl;
+
   return (0);
 }
