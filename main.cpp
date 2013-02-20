@@ -1,35 +1,60 @@
 //
-// main.cpp for abstract in /home/goupil_r//tek2/C++/AbstractVM/repos/AbstractVM
-//
-// Made by robin goupil
-// Login   <goupil_r@epitech.net>
-//
-// Started on  Wed Feb 13 10:47:40 2013 robin goupil
-// Last update Sun Feb 17 13:11:16 2013 robin goupil
+// Avm.cpp for avm in /home/chirou_t//tek2/projets/c++/abstract/AbstractVM
+// 
+// Made by thomas chiroussot-chambeaux
+// Login   <chirou_t@epitech.net>
+// 
+// Started on  Wed Feb 13 14:52:06 2013 thomas chiroussot-chambeaux
+// Last update Tue Feb 19 19:00:29 2013 thomas chiroussot-chambeaux
 //
 
 #include <iostream>
-#include "IOperand.hpp"
-#include "Operand.hpp"
-#include "Abstract.hpp"
+#include <fstream>
+#include <string>
+#include "Parse.hpp"
 
-int		main(int ac, char **av)
+void	my_parse(std::istream *is)
 {
-  (void) ac;
-  (void) av;
-  Abstract	a;
-  IOperand	*op1 = a.createOperand(Int8, "2");
-  IOperand	*op2 = a.createOperand(Int8, "2");
-  IOperand	*op3 = a.createOperand(Int8, "5");
+  std::string ligne;
+  std::list<std::string> list;
+  std::list<std::string> toto;
+  Parse	parsed;
 
-  a.push(op1);
-  a.push(op2);
-  a.push(op3);
-  a.push(a.createOperand(Int8, "120"));
+  while (!(*is).eof() && ligne.compare(";;"))
+    {
+      std::getline((*is), ligne);
 
-  std::cout << "Result add:" << *(a.add()) << std::endl;
-  std::cout << "Result add:" << *(a.add()) << std::endl;
-  std::cout << "Result add:" << *(a.add()) << std::endl;
+      list.push_back(ligne);
+    }
+  parsed.setList(list);
+  toto = parsed.getList();
+  std::cout << "the content of the list is : " << std::endl;
+  for(std::list<std::string>::iterator it = toto.begin(); it != toto.end(); it++)
+    std::cout << *it  << std::endl;
+}
 
-  return (0);
+
+int	main(int ac, char **av)
+{
+  int	i;
+  
+  i = 1;
+  if (ac > 1)
+    {
+      while (av[i] != NULL)
+	{
+	  std::filebuf id;
+	  if (id.open(av[i], std::ios::in))
+	    {
+	      std::istream is(&id);
+	      my_parse(&is);
+	      id.close();
+	    }
+	  else
+	    std::cout << "Error : File does not exist or Permission denied." << std::endl;
+	  i++;
+	}
+    }
+  else
+    my_parse(&(std::cin));
 }
