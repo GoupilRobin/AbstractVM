@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Wed Feb 13 13:52:55 2013 robin goupil
-// Last update Sun Feb 17 13:11:34 2013 robin goupil
+// Last update Wed Feb 20 13:37:11 2013 thomas chiroussot-chambeaux
 //
 
 #ifndef OPERAND_HPP_
@@ -24,6 +24,7 @@ static t_operand	g_OperandTypeInfo[] =
     {Int32, "int32", 2, 2147483647, -2147483648},
     {Float, "float", 3, 32767, -32768},
     {Double, "double", 4, 2147483647, -2147483648},
+    {None, "", 0, 0, 0}
   };
 
 template <typename T>

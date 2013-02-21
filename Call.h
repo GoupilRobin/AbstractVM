@@ -5,14 +5,14 @@
 ** Login   <goupil_r@epitech.net>
 **
 ** Started on  Wed Feb 20 10:56:34 2013 robin goupil
-** Last update Wed Feb 20 11:03:47 2013 robin goupil
+** Last update Wed Feb 20 18:43:49 2013 thomas chiroussot-chambeaux
 */
 
 #ifndef CALL_H_
 # define CALL_H_
 
 #include <list>
-#include "IOperand.h"
+#include "IOperand.hpp"
 
 enum eFuncId
   {
@@ -31,8 +31,10 @@ enum eFuncId
 
 typedef struct s_func
 {
-  eFuncId		id;
-  list<IOperand *>	param;
+  eFuncId	id;
+  IOperand	*param;
 } t_func;
+
+typedef std::list<t_func *> func_list;
 
 #endif

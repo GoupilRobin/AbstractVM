@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Wed Feb 13 10:40:07 2013 robin goupil
-// Last update Thu Feb 14 21:27:12 2013 robin goupil
+// Last update Wed Feb 20 13:24:06 2013 thomas chiroussot-chambeaux
 //
 
 #ifndef IOPERAND_HPP_
@@ -20,6 +20,7 @@ enum eOperandType
     Int32, // int
     Float, // float
     Double, // double
+    None,
   };
 
 typedef struct	s_operand

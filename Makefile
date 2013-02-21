@@ -5,17 +5,19 @@
 ## Login   <goupil_r@epitech.net>
 ## 
 ## Started on  Wed Feb 13 10:48:21 2013 robin goupil
-## Last update Wed Feb 20 10:53:22 2013 thomas chiroussot-chambeaux
+## Last update Thu Feb 21 16:00:27 2013 thomas chiroussot-chambeaux
 ##
 
 NAME		=	abstract
 
 D_NAME		=	debug
 
-SRC		=	main.cpp \
-			Operand.cpp \
+SRC		=	Operand.cpp \
+			parseur_ll.cpp \
 			Parse.cpp \
 			Abstract.cpp \
+			main.cpp
+
 
 C_FLAG		=	-W -Wall -Werror
 
