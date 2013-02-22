@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 // 
 // Started on  Fri Feb 15 15:29:04 2013 thomas chiroussot-chambeaux
-// Last update Thu Feb 21 16:03:50 2013 thomas chiroussot-chambeaux
+// Last update Fri Feb 22 17:54:51 2013 thomas chiroussot-chambeaux
 //
 
 #ifndef __PARSE__
@@ -14,7 +14,7 @@
 
 #include <string>
 #include <list>
-#include "Call.h"
+#include "Call.hpp"
 
 class	Parse
 {
@@ -26,9 +26,8 @@ public:
   ~Parse();
   std::list<std::string> const &getList() const;
   void	setList(std::list<std::string> const & list);
+  std::list<std::string>  get_form(std::string ligne, std::list<std::string> list);
+  int	check_line(std::string ligne);
+  void    my_parse(std::istream *is);
 };
-
-std::list<std::string>  get_form(std::string ligne, std::list<std::string> list);
-void    my_parse(std::istream *is);
-
 #endif

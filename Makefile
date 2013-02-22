@@ -5,7 +5,7 @@
 ## Login   <goupil_r@epitech.net>
 ## 
 ## Started on  Wed Feb 13 10:48:21 2013 robin goupil
-## Last update Thu Feb 21 16:00:27 2013 thomas chiroussot-chambeaux
+## Last update Fri Feb 22 17:51:06 2013 thomas chiroussot-chambeaux
 ##
 
 NAME		=	abstract
@@ -13,7 +13,6 @@ NAME		=	abstract
 D_NAME		=	debug
 
 SRC		=	Operand.cpp \
-			parseur_ll.cpp \
 			Parse.cpp \
 			Abstract.cpp \
 			main.cpp
