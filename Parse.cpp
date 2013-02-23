@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Fri Feb 15 15:54:05 2013 thomas chiroussot-chambeaux
-// Last update Fri Feb 22 18:15:29 2013 robin goupil
+// Last update Sat Feb 23 15:36:15 2013 thomas chiroussot-chambeaux
 //
 
 #include <iostream>
@@ -102,8 +102,10 @@ void    Parse::my_parse(std::istream *is)
 {
   std::string ligne;
   int   i;
+  int	flag;
 
   i = 0;
+  flag = 0;
   while (!(*is).eof() && ligne.compare(";;"))
     {
       i++;
@@ -113,7 +115,15 @@ void    Parse::my_parse(std::istream *is)
       else
         {
 	  std::cout << "Syntax Error : Line " << i << " : " << ligne << std::endl;
-          return;
+          exit(1);
         }
+      if (ligne == "exit" || ligne == ";;")
+	flag = 1;
     }
+  if (!flag)
+    {
+      std::cout << "Error : No exit found" << std::endl;
+      exit(1);
+    }
+  return 1;
 }
