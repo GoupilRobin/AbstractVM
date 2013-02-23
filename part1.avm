@@ -1,0 +1,11 @@
+push int8(8)
+push int16(8)
+push int8(8)
+push int32(42)
+sub
+dump
+add
+dump
+pop
+dump
+exit

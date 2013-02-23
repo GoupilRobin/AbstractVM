@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Mon Feb 11 15:18:07 2013 thomas chiroussot-chambeaux
-// Last update Sat Feb 23 16:48:32 2013 robin goupil
+// Last update Sat Feb 23 18:08:39 2013 robin goupil
 //
 
 #ifndef __ABSTRACT__
@@ -39,7 +39,7 @@ private:
 
 public:
   Abstract();
-  ~Abstract() {}
+  ~Abstract();
 
   IOperand		*createOperand(eOperandType type, const std::string &value);
   void			push(IOperand *iop);

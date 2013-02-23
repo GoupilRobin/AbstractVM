@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Wed Feb 13 14:52:06 2013 thomas chiroussot-chambeaux
-// Last update Fri Feb 22 18:09:42 2013 robin goupil
+// Last update Sat Feb 23 18:27:20 2013 robin goupil
 //
 
 #include <iostream>
@@ -20,7 +20,19 @@
 
 int	main(int ac, char **av)
 {
+  bool	keepStack;
   Exec	e(ac, av);
+  int	i;
 
-  e.start();
+  if (ac > 1)
+    {
+      keepStack = false;
+      for (i = 1; i < ac && !keepStack; i++)
+	if (strcmp(av[i], "--keep") == 0)
+	  keepStack = true;
+      if (keepStack)
+	e.start(1, i - 1, true);
+      else
+	e.start();
+    }
 }

@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Sat Feb 23 16:19:09 2013 robin goupil
-// Last update Sat Feb 23 16:50:35 2013 robin goupil
+// Last update Sat Feb 23 17:47:34 2013 robin goupil
 //
 
 #include "Exception.hpp"
@@ -44,4 +44,12 @@ mathException::mathException(const std::string &str)
 const char			*mathException::what() const throw()
 {
   return (_str.c_str());
+}
+
+exitException::exitException()
+{ }
+
+const char			*exitException::what() const throw()
+{
+  return ("exit");
 }

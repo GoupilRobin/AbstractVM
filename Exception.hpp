@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Sat Feb 23 16:10:07 2013 robin goupil
-// Last update Sat Feb 23 16:50:49 2013 robin goupil
+// Last update Sat Feb 23 17:46:59 2013 robin goupil
 //
 
 #ifndef EXCEPTION_HPP_
@@ -53,6 +53,16 @@ public:
 
 private:
   std::string		_str;
+};
+
+class exitException : public std::exception
+{
+public:
+  exitException();
+  virtual		~exitException() throw()
+  { }
+
+  virtual const char	*what() const throw();
 };
 
 #endif

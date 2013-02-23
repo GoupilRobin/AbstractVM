@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Fri Feb 15 15:54:05 2013 thomas chiroussot-chambeaux
-// Last update Sat Feb 23 17:12:36 2013 thomas chiroussot-chambeaux
+// Last update Sat Feb 23 18:03:56 2013 robin goupil
 //
 
 #include <iostream>
@@ -99,7 +99,7 @@ int     Parse::check_line(std::string ligne, int stream)
 	  if (ligne.c_str()[j] == ')')
 	    {
 	      k = j;
-	      while (ligne.c_str()[++k] == ' ');	
+	      while (ligne.c_str()[++k] == ' ');
 	      if (ligne.c_str()[k] == ';')
 		{
 		  ligne[++j] = '\0';

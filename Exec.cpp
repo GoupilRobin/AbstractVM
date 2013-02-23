@@ -5,72 +5,102 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Fri Feb 22 17:33:33 2013 robin goupil
-// Last update Sat Feb 23 16:49:07 2013 robin goupil
+// Last update Sat Feb 23 18:29:05 2013 robin goupil
 //
 
 #include "Exec.hpp"
 
 Exec::Exec(int pac, char **pav)
 {
+  parse = 0;
+  abst = 0;
   ac = pac;
   av = pav;
 }
 
 Exec::~Exec()
-{ }
+{
+  if (parse)
+    delete parse;
+  if (abst)
+    delete abst;
+}
 
-void			Exec::start()
+void			Exec::start(int i, int ignore, bool keepStack)
 {
   std::list<std::string>	list;
   std::string			func;
   std::string			type;
   std::string			val;
 
-  start_parse();
+  if (i == ignore)
+    {
+      i++;
+      start(i, ignore, keepStack);
+      return;
+    }
+  if (!keepStack || !abst)
+    abst = new Abstract();
+  start_parse(i);
 
-  list = parse.getList();
+  if (!parse)
+    return;
+  list = parse->getList();
   for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it)
     {
       try
 	{
 	  func = *it;
-	  ++it;
+	  it++;
 	  type = *it;
-	  ++it;
+	  it++;
 	  val = *it;
 	  exec_func(func, type, val);
 	}
       catch (const std::exception &e)
 	{
-	  std::cerr << e.what() << std::endl;
-	  abst.exit_func();
+	  if (strcmp(e.what(), "exit") == 0)
+	    {
+	      if (i + 1 < ac)
+		{
+		  if (parse)
+		    delete (parse);
+		  if (abst && !keepStack)
+		    delete (abst);
+		  parse = 0;
+		  start(i + 1, ignore, keepStack);
+		}
+	      return;
+	    }
+	  else
+	    {
+	      std::cerr << e.what() << std::endl;
+	      abst->exit_func();
+	    }
 	}
     }
 }
 
-void			Exec::start_parse()
+void			Exec::start_parse(int i)
 {
-  int	i;
-
-  i = 1;
+  parse = new Parse();
   if (ac > 1)
     {
-      while (av[i] != NULL)
+      if (av[i])
 	{
 	  std::filebuf id;
 	  if (id.open(av[i], std::ios::in))
 	    {
 	      std::istream is(&id);
-	      parse.my_parse(&is);
+	      parse->my_parse(&is);
 	      id.close();
 	    }
 	  else
 	    std::cout << "Error : File does not exist or Permission denied." << std::endl;
-	  i++;
 	}
     }
   else
-    parse.my_parse(&(std::cin));
+    parse->my_parse(&(std::cin));
 }
 
 void			Exec::exec_func(std::string func, std::string type, std::string val)
@@ -89,42 +119,42 @@ void			Exec::exec_func(std::string func, std::string type, std::string val)
 	break;
       }
   if (iopType != None)
-    iop = abst.createOperand(iopType, val);
+    iop = abst->createOperand(iopType, val);
 
   switch(funcId)
     {
     case pushId:
-      abst.push(iop);
+      abst->push(iop);
       break;
     case popId:
-      abst.pop();
+      abst->pop();
       break;
     case dumpId:
-      abst.dump(true);
+      abst->dump(true);
       break;
     case assertId:
-      abst.assert(iop);
+      abst->assert(iop);
       break;
     case addId:
-      abst.add();
+      abst->add();
       break;
     case subId:
-      abst.sub();
+      abst->sub();
       break;
     case mulId:
-      abst.mul();
+      abst->mul();
       break;
     case divId:
-      abst.div();
+      abst->div();
       break;
     case modId:
-      abst.mod();
+      abst->mod();
       break;
     case printId:
-      abst.print();
+      abst->print();
       break;
     case exitId:
-      abst.exit_func();
+      abst->exit_func();
       break;
     default:
       break;

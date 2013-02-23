@@ -5,18 +5,24 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Thu Feb 14 20:56:14 2013 robin goupil
-// Last update Sat Feb 23 16:48:15 2013 robin goupil
+// Last update Sat Feb 23 18:09:27 2013 robin goupil
 //
 
 #include "Abstract.hpp"
 
 Abstract::Abstract()
 {
+  _stack.clear();
   _funcList[0] = &Abstract::createInt8;
   _funcList[1] = &Abstract::createInt16;
   _funcList[2] = &Abstract::createInt32;
   _funcList[3] = &Abstract::createFloat;
   _funcList[4] = &Abstract::createDouble;
+}
+
+Abstract::~Abstract()
+{
+  _stack.clear();
 }
 
 IOperand		*Abstract::createInt8(const std::string &value)
@@ -143,7 +149,7 @@ IOperand		*Abstract::mod()
 
 void			Abstract::exit_func()
 {
-  exit(0);
+  throw exitException();
 }
 
 void			Abstract::assert(IOperand *iop)
