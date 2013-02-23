@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Fri Feb 15 15:29:04 2013 thomas chiroussot-chambeaux
-// Last update Fri Feb 22 18:04:38 2013 robin goupil
+// Last update Sat Feb 23 16:42:18 2013 thomas chiroussot-chambeaux
 //
 
 #ifndef __PARSE__
@@ -26,7 +26,7 @@ public:
   std::list<std::string> const &getList() const;
   void	setList(std::list<std::string> const & list);
   std::list<std::string>  get_form(std::string ligne, std::list<std::string> list);
-  int	check_line(std::string ligne);
+  int	check_line(std::string ligne, int stream);
   void    my_parse(std::istream *is);
 };
 #endif

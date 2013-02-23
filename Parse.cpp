@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Fri Feb 15 15:54:05 2013 thomas chiroussot-chambeaux
-// Last update Sat Feb 23 16:01:08 2013 robin goupil
+// Last update Sat Feb 23 17:12:36 2013 thomas chiroussot-chambeaux
 //
 
 #include <iostream>
@@ -46,7 +46,7 @@ std::list<std::string>  Parse::get_form(std::string ligne, std::list<std::string
 
   i = -1;
   flag = 0;
-  while (ligne.c_str()[++i])
+  while (!ligne.empty() && ligne.c_str()[++i])
     {
       if (ligne.c_str()[i] == ' ' || ligne.c_str()[i] == '(' || ligne.c_str()[i] == ')')
         {
@@ -66,17 +66,20 @@ std::list<std::string>  Parse::get_form(std::string ligne, std::list<std::string
   return list;
 }
 
-int     Parse::check_line(std::string ligne)
+int     Parse::check_line(std::string ligne, int stream)
 {
   int   i;
   int   j;
+  int	k;
 
   i = -1;
   j = -1;
   if (ligne == "pop" || ligne == "dump" || ligne == "add" || ligne == "sub"
       || ligne == "mul" || ligne == "div" || ligne == "mod" || ligne == "print"
-      || ligne == "exit" || ligne == ";;")
+      || ligne == "exit" || (ligne == ";;" && stream == 1))
     return 1;
+  else if (ligne.c_str()[0] == ';')
+    return 2;
   else if (!strncmp(ligne.c_str(), "push ", 5) || !strncmp(ligne.c_str(), "assert ", 7))
     while (!g_OperandTypeInfo[++i].type_name.empty())
       if (strstr(ligne.c_str(), g_OperandTypeInfo[i].type_name.c_str()) != 0)
@@ -93,6 +96,18 @@ int     Parse::check_line(std::string ligne)
             while (isdigit(ligne[++j]));
           if (ligne.c_str()[j] == ')' && ligne.c_str()[j + 1] == '\0')
             return 1;
+	  if (ligne.c_str()[j] == ')')
+	    {
+	      k = j;
+	      while (ligne.c_str()[++k] == ' ');	
+	      if (ligne.c_str()[k] == ';')
+		{
+		  ligne[++j] = '\0';
+		  return 1;
+		}
+	      else
+		return 0;
+	    }
         }
   return 0;
 }
@@ -103,16 +118,23 @@ void    Parse::my_parse(std::istream *is)
   std::string ligne;
   int   i;
   int	flag;
+  int	x;
+  int	stream;
 
   i = 0;
   flag = 0;
+  stream = 0;
+  x = 0;
+  if (is == &(std::cin))
+    stream = 1;
   while (!(*is).eof() && ligne.compare(";;"))
     {
       i++;
       std::getline((*is), ligne);
-      if (check_line(ligne))
+      x = check_line(ligne, stream);
+      if (x == 1)
         _list = get_form(ligne, _list);
-      else
+      else if (x == 0)
         {
 	  std::cout << "Syntax Error : Line " << i << " : " << ligne << std::endl;
           exit(1);
