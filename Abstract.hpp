@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Mon Feb 11 15:18:07 2013 thomas chiroussot-chambeaux
-// Last update Fri Feb 22 18:52:17 2013 robin goupil
+// Last update Sat Feb 23 16:48:32 2013 robin goupil
 //
 
 #ifndef __ABSTRACT__
@@ -14,11 +14,12 @@
 # include <iostream>
 # include <cstdlib>
 # include <string>
-# include <stack>
+# include <list>
 # include "IOperand.hpp"
 # include "Operand.hpp"
+# include "Exception.hpp"
 
-typedef	std::stack<IOperand *> opStack;
+typedef	std::list<IOperand *> opStack;
 
 class	Abstract
 {
@@ -50,6 +51,10 @@ public:
   IOperand		*mul();
   IOperand		*div();
   IOperand		*mod();
+
+  void			exit_func();
+  void			assert(IOperand *iop);
+  void			print();
 };
 
 enum eFuncId

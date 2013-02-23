@@ -1,6 +1,5 @@
 chirou_t:
-Verif si exit dans le program
+Gestion commentaires ';'
 
 goupil_r:
-Finir le switch des exec (manque assert, exit, print)
 Lever exception perso si over/under flow

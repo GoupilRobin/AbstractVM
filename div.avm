@@ -1,0 +1,5 @@
+push int8(60)
+push int8(122)
+div
+dump
+exit

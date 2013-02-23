@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Wed Feb 13 13:52:55 2013 robin goupil
-// Last update Fri Feb 22 18:27:37 2013 robin goupil
+// Last update Sat Feb 23 17:02:40 2013 robin goupil
 //
 
 #ifndef OPERAND_HPP_
@@ -16,6 +16,7 @@
 # include <string>
 # include <sstream>
 # include "IOperand.hpp"
+# include "Exception.hpp"
 
 static t_operand	g_OperandTypeInfo[] =
   {
@@ -44,7 +45,7 @@ public:
     _precision = g_OperandTypeInfo[type].precision;
     if (value > g_OperandTypeInfo[type].max_size || value < g_OperandTypeInfo[type].min_size)
       {
-	std::cout << "Error: Value (" << value << ") overflow the type " << _type_name << " (min=" << g_OperandTypeInfo[type].min_size << " - max=" << g_OperandTypeInfo[type].max_size << ")." << std::endl;
+	throw overflowException(value, _type_name, g_OperandTypeInfo[type]);
 	exit(-1);
       }
     _value = value;
@@ -92,11 +93,10 @@ public:
   {
     IOperand			*out = NULL;
     eOperandType		type;
-    const Operand		&tmp = static_cast<const Operand &>(iop);
     double			res;
 
     type = _precision >= iop.getPrecision() ? _type : iop.getType();
-    res = _value + atof(tmp.toString().c_str());
+    res = _value + atof(iop.toString().c_str());
     switch (type)
       {
       case Int8:
@@ -122,11 +122,10 @@ public:
   {
     IOperand			*out = NULL;
     eOperandType		type;
-    const Operand		&tmp = static_cast<const Operand &>(iop);
     double			res;
 
     type = _precision >= iop.getPrecision() ? _type : iop.getType();
-    res = _value - atof(tmp.toString().c_str());
+    res = _value - atof(iop.toString().c_str());
     switch (type)
       {
       case Int8:
@@ -152,11 +151,10 @@ public:
   {
     IOperand			*out = NULL;
     eOperandType		type;
-    const Operand		&tmp = static_cast<const Operand &>(iop);
     double			res;
 
     type = _precision >= iop.getPrecision() ? _type : iop.getType();
-    res = _value * atof(tmp.toString().c_str());
+    res = _value * atof(iop.toString().c_str());
     switch (type)
       {
       case Int8:
@@ -182,16 +180,12 @@ public:
   {
     IOperand			*out = NULL;
     eOperandType		type;
-    const Operand		&tmp = static_cast<const Operand &>(iop);
     double			res;
 
     type = _precision >= iop.getPrecision() ? _type : iop.getType();
-    if (atof(tmp.toString().c_str()) == 0)
-      {
-	std::cout << "Error: Division by 0." << std::endl;
-	exit(-1);
-      }
-    res = _value / atof(tmp.toString().c_str());
+    if (atof(iop.toString().c_str()) == 0)
+      throw mathException("Error: Division by 0.");
+    res = _value / atof(iop.toString().c_str());
     switch (type)
       {
       case Int8:
@@ -217,24 +211,13 @@ public:
   {
     IOperand			*out = NULL;
     eOperandType		type;
-    const Operand		&tmp = static_cast<const Operand &>(iop);
 
     type = _precision >= iop.getPrecision() ? _type : iop.getType();
-    if (atof(tmp.toString().c_str()) == 0)
-      {
-	std::cout << "Error: Modulo by 0." << std::endl;
-	exit(-1);
-      }
+    if (atof(iop.toString().c_str()) == 0)
+      throw mathException("Error: Modulo by 0.");
     if (_type >= Float || iop.getType() >= Float)
-      {
-	std::cout << "Error: Modulo with ";
-	if (_type == Float || iop.getType() == Float)
-	  std::cout << "float." << std::endl;
-	else
-	  std::cout << "double." << std::endl;
-	exit(-1);
-      }
-    out = new Operand(type, (long)_value % atoi(tmp.toString().c_str()));
+      throw mathException("Error: Modulo with decimal type.");
+    out = new Operand(type, (long)_value % atoi(iop.toString().c_str()));
     return (out);
   }
 

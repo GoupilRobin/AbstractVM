@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Thu Feb 14 20:56:14 2013 robin goupil
-// Last update Fri Feb 22 18:52:15 2013 robin goupil
+// Last update Sat Feb 23 16:48:15 2013 robin goupil
 //
 
 #include "Abstract.hpp"
@@ -66,17 +66,14 @@ IOperand		*Abstract::createOperand(eOperandType type, const std::string &value)
 
 void			Abstract::push(IOperand *iop)
 {
-  _stack.push(iop);
+  _stack.push_back(iop);
 }
 
 void			Abstract::pop()
 {
   if (_stack.size() <= 0)
-    {
-      std::cout << "Error: Pop on empty stack." << std::endl;
-      exit(-1);
-    }
-  _stack.pop();
+    throw popException();
+  _stack.pop_back();
 }
 
 IOperand		*Abstract::dump(bool print)
@@ -84,8 +81,9 @@ IOperand		*Abstract::dump(bool print)
   if (_stack.size() <= 0)
     return (NULL);
   if (print)
-    std::cout << *_stack.top() << std::endl;
-  return (_stack.top());
+    for (opStack::reverse_iterator it = _stack.rbegin(); it != _stack.rend(); ++it)
+      std::cout << **it << std::endl;
+  return (_stack.back());
 }
 
 IOperand		*Abstract::add()
@@ -141,4 +139,29 @@ IOperand		*Abstract::mod()
 
   push(*a % *b);
   return (dump());
+}
+
+void			Abstract::exit_func()
+{
+  exit(0);
+}
+
+void			Abstract::assert(IOperand *iop)
+{
+  if (dump()->toString() != iop->toString() || dump()->getType() != iop->getType())
+    {
+      std::cout << "Asert failed" << std::endl;
+      exit_func();
+    }
+}
+
+void			Abstract::print()
+{
+  if (dump()->getType() == Int8)
+    std::cout << static_cast<Operand<char> *>(dump())->getValue() << std::endl;
+  else
+    {
+      std::cout << "Print failed" << std::endl;
+      exit_func();
+    }
 }

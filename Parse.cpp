@@ -5,7 +5,7 @@
 // Login   <chirou_t@epitech.net>
 //
 // Started on  Fri Feb 15 15:54:05 2013 thomas chiroussot-chambeaux
-// Last update Sat Feb 23 15:36:15 2013 thomas chiroussot-chambeaux
+// Last update Sat Feb 23 16:01:08 2013 robin goupil
 //
 
 #include <iostream>
@@ -122,8 +122,7 @@ void    Parse::my_parse(std::istream *is)
     }
   if (!flag)
     {
-      std::cout << "Error : No exit found" << std::endl;
+      std::cout << "Syntax Error : No exit found" << std::endl;
       exit(1);
     }
-  return 1;
 }

@@ -5,7 +5,7 @@
 // Login   <goupil_r@epitech.net>
 //
 // Started on  Fri Feb 22 17:33:33 2013 robin goupil
-// Last update Fri Feb 22 18:55:29 2013 robin goupil
+// Last update Sat Feb 23 16:49:07 2013 robin goupil
 //
 
 #include "Exec.hpp"
@@ -31,12 +31,20 @@ void			Exec::start()
   list = parse.getList();
   for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it)
     {
-      func = *it;
-      ++it;
-      type = *it;
-      ++it;
-      val = *it;
-      exec_func(func, type, val);
+      try
+	{
+	  func = *it;
+	  ++it;
+	  type = *it;
+	  ++it;
+	  val = *it;
+	  exec_func(func, type, val);
+	}
+      catch (const std::exception &e)
+	{
+	  std::cerr << e.what() << std::endl;
+	  abst.exit_func();
+	}
     }
 }
 
@@ -54,7 +62,6 @@ void			Exec::start_parse()
 	    {
 	      std::istream is(&id);
 	      parse.my_parse(&is);
-
 	      id.close();
 	    }
 	  else
@@ -96,7 +103,7 @@ void			Exec::exec_func(std::string func, std::string type, std::string val)
       abst.dump(true);
       break;
     case assertId:
-
+      abst.assert(iop);
       break;
     case addId:
       abst.add();
@@ -114,10 +121,10 @@ void			Exec::exec_func(std::string func, std::string type, std::string val)
       abst.mod();
       break;
     case printId:
-
+      abst.print();
       break;
     case exitId:
-
+      abst.exit_func();
       break;
     default:
       break;
